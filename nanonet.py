@@ -12,7 +12,7 @@ class NanoNet(nn.Module):
         super(NanoNet, self).__init__()
 
         self.backbone = torchvision.models.mobilenet_v2(
-            # weights=torchvision.models.MobileNet_V2_Weights.IMAGENET1K_V2,
+            weights=torchvision.models.MobileNet_V2_Weights.IMAGENET1K_V2,
         )
         del self.backbone.classifier, self.backbone.features[4:]
 
