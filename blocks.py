@@ -69,5 +69,6 @@ class ResidualBlock(nn.Module):
     def forward(self, x):
         out = self.conv(x)
         out = out + self.skip(x)
+        out = torch.relu_(out)
         out = self.se(out)
         return out
