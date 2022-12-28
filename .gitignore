@@ -1,0 +1,20 @@
+.git/
+
+build
+dist
+*.egg-info
+*.egg/
+*.pyc
+*.swp
+
+.tox
+.coverage
+html/*
+doctrees/*
+__pycache__
+
+# Compiled Documentation
+docs/_build
+
+# developer environments
+.vscode
