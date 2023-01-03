@@ -6,6 +6,37 @@ from torch import Tensor
 from typing import Callable, List, Optional, Sequence, Tuple, Union
 
 
+class ConvNormAct(nn.Module):
+    def __init__(
+        self, 
+        in_channels, 
+        out_channels,
+        kernel_size,
+        stride=1,
+        groups=1,
+        act=True,
+        norm=True,
+    ):
+        super(ConvNormAct, self).__init__()
+
+        self.conv = nn.Conv2d(
+            in_channels,
+            out_channels, 
+            kernel_size,
+            stride=stride,
+            padding=kernel_size // 2,
+            groups=groups,
+            bias=False,
+        )
+        self.norm = nn.BatchNorm2d(out_channels) if norm else nn.Identity()
+        self.act = nn.ReLU6(inplace=True) if act else nn.Identity()
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.norm(x)
+        return self.act(x)
+
+
 class SqueezeExcitation(torch.nn.Module):
     """
     This block implements the Squeeze-and-Excitation block from https://arxiv.org/abs/1709.01507 (see Fig. 1).
